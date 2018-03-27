@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">liza_allert</string>
+    <string name="title_activity_map">Map</string>
+
+    <string-array name="spinner_list">
+        <item>Нет опыта</item>
+        <item>Обучен</item>
+        <item>Старший</item>
+    </string-array>
 </resources>
