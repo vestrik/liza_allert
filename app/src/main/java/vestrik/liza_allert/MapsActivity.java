@@ -139,19 +139,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         id++;
         if(points.size()>1)
         {
-            bottom = SphericalUtil.computeOffset(points.get(0), 5000, 0);
-            bottom = SphericalUtil.computeOffset(bottom, 5000, 90);
-            top = SphericalUtil.computeOffset(points.get(0), 5000, 180);
-            top = SphericalUtil.computeOffset(top, 5000, 270);
+            bottom = SphericalUtil.computeOffset(points.get(0), 6000, 0);
+            bottom = SphericalUtil.computeOffset(bottom, 6000, 90);
+            top = SphericalUtil.computeOffset(points.get(0), 6000, 180);
+            top = SphericalUtil.computeOffset(top, 6000, 270);
             LatLngBounds ADELAIDE = new LatLngBounds(top,bottom);
             //LatLng l=(top,bottom);
 
            // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(points.get(0),14.0f));
            // mMap.setMaxZoomPreference(17.0f);
            // mMap.setLatLngBoundsForCameraTarget(ADELAIDE);
-            mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(ADELAIDE, 0));
-            mMap.setLatLngBoundsForCameraTarget(ADELAIDE);
-            mMap.setMinZoomPreference(12.0f);
+           // mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(ADELAIDE, 0));
+          //  mMap.setLatLngBoundsForCameraTarget(ADELAIDE);
+          //  mMap.setMinZoomPreference(12.0f);
 
             drawnet();
 
@@ -323,54 +323,42 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
    void drawnet()
    {
-       PolylineOptions polylineOptions = new PolylineOptions();
-       polylineOptions.width(2).color(Color.BLACK);
-       List<LatLng> net = new ArrayList<>();
-       net.add(points.get(0));
-       net.add(SphericalUtil.computeOffset(net.get(0), 500, 270));
-       net.add(SphericalUtil.computeOffset(net.get(1), 500, 0));
-       net.add(SphericalUtil.computeOffset(net.get(2), 500, 90));
-       net.add(net.get(0));
-       polylineOptions.addAll(net);
-       mMap.addPolyline(polylineOptions);
-
-       LatLng a=net.get(1),b=net.get(2),c=net.get(3);
-       LatLng b1=b;
-       drawLeft(a,b);
-       drawUp(b,c);
 
 
-
-
+       draw(points.get(0),270,0);
+       draw(points.get(0),0,270);
+       draw(points.get(0),90,0);
+       draw(points.get(0),0,90);
+       draw(points.get(0),180,90);
+       draw(points.get(0),90,180);
+       draw(points.get(0),180,270);
+       draw(points.get(0),270,180);
    }
 
-   void drawLeft(LatLng a, LatLng b)
-   {
-       PolylineOptions polylineOptions2 = new PolylineOptions();
-       polylineOptions2.width(2).color(Color.BLACK);
-       List<LatLng> net2 = new ArrayList<>();
-       net2.add(a);
-       net2.add(SphericalUtil.computeOffset(net2.get(0), 500, 270));
-       net2.add(SphericalUtil.computeOffset(net2.get(1), 500, 0));
-       net2.add(b);
-       polylineOptions2.addAll(net2);
-       mMap.addPolyline(polylineOptions2);
-       net2.clear();
-   }
+   void draw(LatLng l,double a,double b)
+    {   List<LatLng> tt1 = new ArrayList<>();
+        LatLng t1,t2=l;
+        for (int k = 0; k < 11; k++)
+        {
 
-   void drawUp(LatLng b, LatLng c)
-   {
-       PolylineOptions polylineOptions3 = new PolylineOptions();
-       polylineOptions3.width(2).color(Color.BLACK);
-       List<LatLng> net3 = new ArrayList<>();
-       net3.add(b);
-       net3.add(SphericalUtil.computeOffset(net3.get(0), 500, 0));
-       net3.add(SphericalUtil.computeOffset(net3.get(1), 500, 90));
-       net3.add(c);
-       polylineOptions3.addAll(net3);
-       mMap.addPolyline(polylineOptions3);
-       net3.clear();
-   }
+            LatLng j = t2;
+            for (int i = 0; i < 10; i++) {
+                PolylineOptions polylineOptions = new PolylineOptions();
+                polylineOptions.width(2).color(Color.BLACK);
+                tt1.add(j);
+                t1 = SphericalUtil.computeOffset(j, 500, a);
+                tt1.add(t1);
+                polylineOptions.addAll(tt1);
+                mMap.addPolyline(polylineOptions);
+                j = t1;
+                tt1.clear();
+            }
+
+            t2 = SphericalUtil.computeOffset(t2, 500, b);
+
+
+        }
+    }
 
 
 }
