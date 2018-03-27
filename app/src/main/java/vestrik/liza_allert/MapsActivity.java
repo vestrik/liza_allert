@@ -339,24 +339,24 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     {   List<LatLng> tt1 = new ArrayList<>();
         LatLng t1,t2=l;
         for (int k = 0; k < 11; k++)
-        {
+        {PolylineOptions polylineOptions = new PolylineOptions();
+            polylineOptions.width(2).color(Color.BLACK);
 
             LatLng j = t2;
             for (int i = 0; i < 10; i++) {
-                PolylineOptions polylineOptions = new PolylineOptions();
-                polylineOptions.width(2).color(Color.BLACK);
+
                 tt1.add(j);
                 t1 = SphericalUtil.computeOffset(j, 500, a);
                 tt1.add(t1);
                 polylineOptions.addAll(tt1);
-                mMap.addPolyline(polylineOptions);
+
                 j = t1;
                 tt1.clear();
             }
 
             t2 = SphericalUtil.computeOffset(t2, 500, b);
 
-
+            mMap.addPolyline(polylineOptions);
         }
     }
 
