@@ -137,98 +137,26 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
         db.close();
         id++;
-        if(points.size()>1)
-        {
+        if (points.size() > 1) {
             bottom = SphericalUtil.computeOffset(points.get(0), 6000, 0);
             bottom = SphericalUtil.computeOffset(bottom, 6000, 90);
             top = SphericalUtil.computeOffset(points.get(0), 6000, 180);
             top = SphericalUtil.computeOffset(top, 6000, 270);
-            LatLngBounds ADELAIDE = new LatLngBounds(top,bottom);
+            LatLngBounds ADELAIDE = new LatLngBounds(top, bottom);
             //LatLng l=(top,bottom);
 
-           // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(points.get(0),14.0f));
-           // mMap.setMaxZoomPreference(17.0f);
-           // mMap.setLatLngBoundsForCameraTarget(ADELAIDE);
-           // mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(ADELAIDE, 0));
-          //  mMap.setLatLngBoundsForCameraTarget(ADELAIDE);
-          //  mMap.setMinZoomPreference(12.0f);
+            // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(points.get(0),14.0f));
+            // mMap.setMaxZoomPreference(17.0f);
+            // mMap.setLatLngBoundsForCameraTarget(ADELAIDE);
+            mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(ADELAIDE, 0));
+            mMap.setLatLngBoundsForCameraTarget(ADELAIDE);
+            mMap.setMinZoomPreference(13.0f);
 
             drawnet();
 
 
-
-
-
-            /*for(int i=0;i<40;i=i+4)
-            {
-                net.add(SphericalUtil.computeOffset(net.get(2+i), 500, 90));
-                net.add(SphericalUtil.computeOffset(net.get(3+i), 10000, 180));
-                net.add(SphericalUtil.computeOffset(net.get(4+i), 500, 90));
-                net.add(SphericalUtil.computeOffset(net.get(5+i), 10000, 0));
-            }
-            net.add(net.get(2));
-            for(int i=0;i<40;i=i+4)
-            {
-            net.add(SphericalUtil.computeOffset(net.get(43+i), 500, 180));
-            net.add(SphericalUtil.computeOffset(net.get(44+i), 500, 90));
-            net.add(SphericalUtil.computeOffset(net.get(45+i), 500, 180));
-            net.add(SphericalUtil.computeOffset(net.get(46+i), 500, 270));
-            }*/
-
-
         }
-
-
     }
-
-
-
-
-   /* private class Updater implements Runnable {
-
-        @Override
-        public void run() {
-            //помещаем в очередь следующий цикл обновления
-            handler.postDelayed(this, POPUP_POSITION_REFRESH_INTERVAL);
-            // try {
-
-
-        }
-
-    }
-                    if(fl)
-                    {
-
-                        ArrayList<LatLng> index = new ArrayList<>();
-                        for (int j = 0; j < numbers.size(); j++) {
-                            String n = numbers.get(j);
-                            for (int t = 0; t < numbers.size(); t++) {
-                                if (n.equals(numbers.get(t))) {
-                                    index.add(points.get(t));
-                                }
-                            }
-                            if (index.size() > 1) {
-                                PolylineOptions polylineOptions = new PolylineOptions();
-                                polylineOptions.addAll(index);
-                                polylineOptions
-                                        .width(5)
-                                        .color(color);
-                                mMap.addPolyline(polylineOptions);
-
-                            }
-                            index.clear();
-
-                        }
-
-                        mMap.addMarker(volunteer.markOp);
-
-
-            //}
-            // }
-            // } catch (NumberFormatException e) {
-            //e.printStackTrace();
-            //}
-    */
 
     @Override
     protected void onResume() {
